@@ -1,5 +1,7 @@
 import Head from "next/head";
 import InputSection from "./components/InputSection.js";
+import UploadFolder from "./components/UploadFolder.js"
+
 export default function Home() {
   return (
     <>
@@ -12,6 +14,7 @@ export default function Home() {
 
 
       <InputSection />
+      < UploadFolder/>
 
 
     </>
