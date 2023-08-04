@@ -4,11 +4,39 @@ import path from 'path'
 import handleFolderAndFileTree from "@/public/utils/handleFolderAndFileTree"
 import handlePath from "@/public/utils/handlePath"
 import { PurgeCSS } from "purgecss"
-import AdmZip from "adm-zip"
+import createZip from "@/public/utils/createZip"
+// import AdmZip from "adm-zip"
 
+export  async function  GET(){
 
-export async function POST(request){
+    const zipPath = './public/zip/cleanedcss.zip';
+    const filePath = "./public/uploads"
+
+    // create zip
+    await createZip(filePath, zipPath)
+
+    return new NextResponse('posted')
+
+}
+
+export async function POST(request, response){
     const files = await request.json()
+    const isExistedFilePath = fs.existsSync('./public/zip/cleanedcss.zip')
+    const isExistedFolderPath = fs.existsSync('./public/uploads')
+
+    if(isExistedFolderPath){
+        fs.rmdirSync('./public/uploads', { recursive: true });
+    }
+
+
+    console.log(isExistedFilePath)
+
+    if (isExistedFilePath){
+        console.log('remove zip')
+        fs.rmdirSync('./public/zip', {recursive: true})
+    }
+    
+
     // create uploads folder and in their the clients html css and js is placed
     handleFolderAndFileTree(files)
     const json = await handlePath(files)
@@ -23,20 +51,6 @@ export async function POST(request){
     })
 
 
-    const outputFileName = './public/zip/cleanedcss.zip';
-    const zip = new AdmZip();
-    zip.addLocalFolder("./public");
-    zip.writeZip(outputFileName);
+    return new NextResponse('/api/upload-folder')
 
-
-    
-
-
-
-    return new NextResponse(null, {
-        headers: {
-            'Content-Disposition': `attachment; filename="${outputFileName}"`,
-            'Content-Type':  'application/zip'
-        }
-    })
 }

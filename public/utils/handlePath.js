@@ -1,9 +1,12 @@
-import fs from 'fs'
-import path from 'path'
-import url from 'url'
-import cheerio from 'cheerio'
+// import fs from 'fs'
+// import path from 'path'
+// import url from 'url'
+// import cheerio from 'cheerio'
 
-
+const fs = require('fs')
+const path =require('path')
+const url =require('url')
+const cheerio =require('cheerio')
 
 function isLocalPath(filePath) {
     return !url.parse(filePath).protocol; // Check if the filePath has a protocol (http/https) or not

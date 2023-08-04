@@ -6,9 +6,12 @@ import { useCallback, useState, useEffect} from 'react'
 import UploadToCloudIcon from './SVG/UploadToCloudIcon'
 import LightingIcon from './SVG/LightingIcon'
 
+
 export default function UploadFolder() {
 
   const [downloadLink, setDownloadLink] = useState('');
+  const [loader, setLoader] = useState('')
+  const [fileInfoEl, setFileInfo] = useState([])
   
   // reads file 
   async function readFileAsync(file) {
@@ -58,28 +61,17 @@ export default function UploadFolder() {
   const onDrop = useCallback(async (files) => {
     try {
 
-      const filesInfo = await readFileContents(files)
-      console.log(filesInfo) 
-
-     
-
-    
-     const response = await axios.post('/api/upload-folder', filesInfo, {
+      const f = await readFileContents(files)
+      console.log('client post')
+      const response = await axios.post('/api/upload-folder', f, {
         headers: {
           'Content-Type': 'application/json'
 
-        },
-        responseType: 'blob'
+        }
       })
-
-
-      const blob = new Blob([response.data], { type: 'application/zip' });
-      const downloadUrl = URL.createObjectURL(blob);
-      setDownloadLink(downloadUrl);
-  
-
-
-
+      // setFileInfo(f)
+      setDownloadLink(response.data);
+      
 
     } catch (error) {
       console.error('Error reading files:', error);
@@ -87,15 +79,30 @@ export default function UploadFolder() {
   }, []);
 
 
+  useEffect(() => {
+
+  async function getDownloadLink(){
+    
+    console.log('client get')
+    const res = await axios.get(downloadLink)
+    setLoader(res.data)
+
+}
+
+  
+ if(downloadLink.length > 0){
+  getDownloadLink()
+  setDownloadLink('')
+ }
+
+ 
+    
+  }, [downloadLink])
+
+
 
 
   const { getRootProps, getInputProps , isDragActive} = useDropzone({ onDrop });
-
-
-  // if ( downloadLink){
-  //   console.log(downloadLink)
-  // }
-
 
 
   return (
@@ -116,11 +123,11 @@ export default function UploadFolder() {
             SVG, PNG, JPG or GIF (MAX. 800x400px)
           </p>
         </div>
-        <input
+        {/* <input
           {...getInputProps()}
           type='file'
           className='hidden'
-        />
+        /> */}
       </label>
 
 </div>
@@ -129,10 +136,11 @@ export default function UploadFolder() {
   </div>
 
 {/* work here */}
-{downloadLink && (
-  <a className='p-4 mt-4 flex bg-gradient-to-t from-slate-900 to-slate-700 hover:from-slate-900 hover:to-slate-800 rounded-2xl text-white w-full'  href={'./zip/cleanedcss.zip'} download='cleandedcss.zip'>
+{loader && (
+  <a className='p-4 mt-4 flex bg-gradient-to-t from-slate-900 to-slate-700 hover:from-slate-900 hover:to-slate-800 rounded-2xl text-white w-full'  href={'./zip/cleanedcss.zip'} download='cleanedcss.zip'>
   <div className='flex mx-auto'>
   Vamos
+  
   <LightingIcon/>
   </div>
     </a>
