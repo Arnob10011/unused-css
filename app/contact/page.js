@@ -16,6 +16,7 @@ export default function contact() {
   async function handleFeedback(e){
     e.preventDefault()
     setLoading(true)
+    console.log('trged')
 
     const json = {
       email: e.target.email.value,
@@ -132,6 +133,7 @@ export default function contact() {
               </div>
               <button
                 type='submit'
+                disabled={loading}
                 className='py-3 px-5 text-sm font-medium bg-slate-900 hover:bg-slate-800 text-center text-white rounded-lg bg-primary-700 sm:w-fit hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 flex'>
                 Send message
 
