@@ -77,8 +77,7 @@ export default function contact() {
               Contact Us
             </h2>
             <p className='mb-4 lg:mb-8 font-light text-center text-slate-700 sm:text-xl'>
-              Got a technical issue? Want to send feedback about a beta feature?
-              Need details about our Business plan? Let us know.
+              Got a technical issue? Want to send feedback about a beta feature? Let us know.
             </p>
             <form onSubmit={handleFeedback} className='space-y-8' id="form">
               <div>

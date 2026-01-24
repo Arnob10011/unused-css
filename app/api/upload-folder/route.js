@@ -43,22 +43,30 @@ export async function POST(request, response){
     handleFolderAndFileTree(files)
     const json = await handlePath(files)
 
-    json.forEach(async (obj, i) => {
+    for (const obj of json) {
         const purgecss = await new PurgeCSS().purge({
             content: obj.content,
             css: obj.css
           });
-    // updates the css file in an cleaner version
-    purgecss.forEach(o => fs.writeFileSync(o.file , o.css))
-    })
+        // updates the css file in a cleaner version
+        purgecss.forEach(o => fs.writeFileSync(o.file , o.css))
+    }
 
-
-    return new NextResponse('/api/upload-folder')
+    // Return the path to download the zip file
+    return NextResponse.json({
+        downloadPath: '/zip/cleanedcss.zip',
+        success: true,
+        message: 'CSS cleaning completed successfully'
+    }, { status: 200 })
 
 
     
    } catch (error) {
     console.log(error.message)
+    return NextResponse.json({ 
+      success: false, 
+      message: error.message || 'Error processing files' 
+    }, { status: 500 })
    }
 
 }

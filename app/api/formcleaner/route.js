@@ -52,9 +52,14 @@ export async function POST(request, res) {
 
   const resulti = await new PurgeCSS().purge(purgeCssConfig)
   const cleanedCss = resulti[0].css
-  // return new NextResponse(JSON.stringify({html :files.html, css: cleanedCss, js: files.js }))
-  // This works ok
-  return new NextResponse(JSON.stringify({css: cleanedCss }))
+  console.log('cleaned css', cleanedCss)
+  
+  return NextResponse.json({
+    css: cleanedCss,
+    originalCssSize: files.css.length,
+    cleanedCssSize: cleanedCss.length,
+    reduction: ((1 - cleanedCss.length / files.css.length) * 100).toFixed(2)
+  }, { status: 200 })
 
 
 }

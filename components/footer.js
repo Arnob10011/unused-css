@@ -6,10 +6,7 @@ export default function navbar() {
       <div className='w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between'>
         <span className='text-sm text-white sm:text-center'>
           © 2023 Contributed by{" "}
-          <a href='' className='hover:underline'>
-            Abdullah{" "}
-          </a>
-          &{" "}
+         
           <a href='' className='hover:underline'>
             Arnob
           </a>

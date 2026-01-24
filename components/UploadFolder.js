@@ -63,49 +63,43 @@ export default function UploadFolder() {
       setLoaing(true)
       setLoader('')
       const f = await readFileContents(files)
-      console.log(f)
-      console.log('client post')
+
       const response = await axios.post('/api/upload-folder', f, {
         headers: {
           'Content-Type': 'application/json'
-
         }
       })
-      // setFileInfo(f)
-      setDownloadLink(response.data);
       
+      // Check if response was successful
+      if (response.data.success && response.data.downloadPath) {
+        setDownloadLink(response.data.downloadPath)
+        setLoader(response.data.downloadPath)
+        setLoaing(false)
+        
+        // Auto-download the file
+        const downloadLink = document.createElement('a');
+        downloadLink.href = response.data.downloadPath;
+        downloadLink.download = 'cleanedcss.zip';
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+      } else {
+        console.error('Upload failed:', response.data.message)
+        setLoader('')
+        setLoaing(false)
+      }
 
     } catch (error) {
-      console.error('Error reading files:', error);
+      console.error('Error uploading files:', error);
+      setLoader('')
+      setLoaing(false)
     }
   }, []);
 
 
   useEffect(() => {
-
-  async function getDownloadLink(){
-    
-    console.log('client get')
-    const res = await axios.get(downloadLink)
-    setLoader(res.data)
-
-}
-
-  
- if(downloadLink.length > 0){
-  getDownloadLink()
-  setDownloadLink('')
-
-  
- }
-
-  }, [downloadLink])
-
-
-
-  useEffect(() => {
     if(loader.length > 0){
-    setLoaing(false)
+      setLoaing(false)
     }
   }, [loader])
 

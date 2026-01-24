@@ -24,8 +24,8 @@ export default function Home() {
         <div
           id='crypto-modal'
           tabIndex='-1'
-          aria-hidden='false'
-          className='fixed top-0 flex hidden  glass_effect_modal h-screen left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 max-h-full'>
+          aria-hidden='true'
+          className='fixed top-0 hidden glass_effect_modal h-screen left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 max-h-full'>
           <div className='relative w-full max-w-md max-h-full mx-auto'>
             <div className='relative glass_effect_modal rounded-lg shadow'>
               <button
@@ -118,8 +118,8 @@ export default function Home() {
         <div
           id='crypto-modal'
           tabIndex='-1'
-          aria-hidden='false'
-          className='fixed top-0 flex hidden glass_effect_modal h-screen left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 max-h-full'>
+          aria-hidden='true'
+          className='fixed top-0 hidden glass_effect_modal h-screen left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 max-h-full'>
           <div className='relative w-full max-w-md max-h-full mx-auto'>
             <div className='relative glass_effect_modal rounded-lg shadow'>
               <button
@@ -211,7 +211,7 @@ export default function Home() {
           <div className='max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4'>
             <div className=' mt-32'>
               <HomeIntroduction/>
-              <div className='w-full grid grid-cols-2 gap-10'>
+              <div className='w-full grid grid-cols-1 md:grid-cols-2 gap-10'>
                 <div>
                   <div className='glass_effect rounded-2xl p-7'>
                     <div className='text-slate-800 font-bold mb-4'>
