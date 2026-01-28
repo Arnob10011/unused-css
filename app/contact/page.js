@@ -55,12 +55,9 @@ export default function contact() {
     else if (loader.length > 0){
       
       const formEl = document.getElementById('form')    
-      setTimeout(() => {
-        setLoading(false)
+ setLoading(false)
         setLoader('')
         formEl.reset()
-
-      }, 5000)
     }
 
   }, [loader])
