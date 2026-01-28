@@ -46,7 +46,7 @@ try {
 
         await transporter.sendMail({
             from: data.email,
-            to: process.env.GMAILS,
+            to: process.env.GMAIL,
             subject: `Feedback Submission from ${data.email}`,
             html: `
                 <h3>New Feedback Submission</h3>
