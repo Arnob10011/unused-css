@@ -6,12 +6,6 @@ import Form from "../components/Form";
 import UploadFolder from "@/components/UploadFolder";
 import HomeIntroduction from "@/components/HomeIntroduction";
 
-export const metadata = {
-  title: "Blog",
-  openGraph: {
-    title: "Blog",
-  },
-};
 
 export default function Home() {
 
