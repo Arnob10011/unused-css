@@ -35,7 +35,7 @@ try {
     }
 
     // Email notification
-    if (process.env.GMAIL_APP_PASSWORD && process.env.GMAILS) {
+    if (process.env.GMAIL_APP_PASSWORD && process.env.GMAIL) {
         const transporter = nodemailer.createTransport({
             service: "gmail",
             auth: {

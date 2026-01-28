@@ -1,8 +1,6 @@
 import { NextResponse } from "next/server";
 import { PurgeCSS } from "purgecss";
-export async function GET(request, response) {
-  console.log("get request");
-}
+
 export async function POST(request, res) {
   const files = await request.json()
 
